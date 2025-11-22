@@ -46,6 +46,7 @@ function AutoFollow({ position }: { position: Tcenter }) {
 }
 
 // export default function Map({ center }: { center: Tcenter }) {
+// export default function Map({ center }: { center: LatLng }) {
 export default function Map() {
   // const map = useMap();
 
@@ -54,18 +55,20 @@ export default function Map() {
     lng: 0,
   });
 
+  const [targetLatLng, setTargetLatLng] = useState({
+    lat: 14.0835,
+    lng: 121.1474,
+  });
+
   function showPosition(position: any) {
     setLatLng({
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     });
-    // console.log(latlng.lat);
-    // console.log(latlng.lng);
   }
 
   useEffect(() => {
     const logInterval = setInterval(() => {
-      // navigator.geolocation.getCurrentPosition(showPosition);
       navigator.geolocation.watchPosition(showPosition);
       // }, 1500);
     }, 10);
@@ -77,7 +80,6 @@ export default function Map() {
 
   useEffect(() => {
     console.log(`Updated GPS: Lat: ${latlng.lat}, Lng: ${latlng.lng}`);
-    // map.setView([latlng.lat, latlng.lng]);
   }, [latlng]);
 
   return (
