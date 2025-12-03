@@ -55,32 +55,43 @@ export default function Map() {
     lng: 0,
   });
 
-  const [targetLatLng, setTargetLatLng] = useState({
-    lat: 14.0835,
-    lng: 121.1474,
-  });
+  // const [targetLatLng, setTargetLatLng] = useState({
+  //   lat: 14.0835,
+  //   lng: 121.1474,
+  // });
 
   function showPosition(position: any) {
+    console.log(`-----------------------`);
+    console.log(position);
+
     setLatLng({
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     });
   }
 
-  useEffect(() => {
-    const logInterval = setInterval(() => {
-      navigator.geolocation.watchPosition(showPosition);
-      // }, 1500);
-    }, 10);
+  try {
+    navigator.geolocation.watchPosition(showPosition);
+  } catch (error) {
+    console.log(
+      `Something went wrong. Please check your internet connection and try again. ${error}`
+    );
+  }
 
-    return () => {
-      clearInterval(logInterval);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const logInterval = setInterval(() => {
+  //     navigator.geolocation.watchPosition(showPosition);
+  //     // }, 1500);
+  //   }, 10);
 
-  useEffect(() => {
-    console.log(`Updated GPS: Lat: ${latlng.lat}, Lng: ${latlng.lng}`);
-  }, [latlng]);
+  //   return () => {
+  //     clearInterval(logInterval);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log(`Updated GPS: Lat: ${latlng.lat}, Lng: ${latlng.lng}`);
+  // }, [latlng]);
 
   return (
     <div>
